@@ -33,7 +33,7 @@ class Onboarding extends StatelessWidget {
           Column(
             children: [
               ButtonComp(title: "Create Account",buttonColorWhite: true,buttonAction: (){ Navigator.popAndPushNamed(context, 'register');}, ),
-              ButtonComp(title: "Log In as Guest",buttonAction: (){ Navigator.popAndPushNamed(context, 'login');},),
+              ButtonComp(title: "Log In as Guest",buttonAction: (){ Navigator.popAndPushNamed(context, 'login');}, ),
             ],
           )
         ],

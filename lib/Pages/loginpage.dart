@@ -1,3 +1,4 @@
+import 'package:bookstore/Data%20Layer/SignInSignUp.dart';
 import 'package:bookstore/global/common/InputTextFieldComp.dart';
 import 'package:bookstore/global/common/button.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
-  TextEditingController _usernameControl = TextEditingController();
+  TextEditingController _emailControl = TextEditingController();
   TextEditingController _passwordControl = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,8 @@ class _LoginpageState extends State<Loginpage> {
       systemNavigationBarIconBrightness:
           Brightness.dark, // Navigation bar icons color
     ));
+
+    Signinsignup _signinsugnup = Signinsignup();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -31,7 +34,7 @@ class _LoginpageState extends State<Loginpage> {
           Image.asset('assets/logo-dark.png'),
           Column(
             children: [
-              Inputtextfieldcomp(hintText: "UserName",controller: _usernameControl,),
+              Inputtextfieldcomp(hintText: "Email",controller: _emailControl,),
               Inputtextfieldcomp(hintText: "Password",controller: _passwordControl, password: true,),
             ],
           ),
@@ -40,7 +43,7 @@ class _LoginpageState extends State<Loginpage> {
               ButtonComp(
                   title: 'Login',
                   buttonAction: () {
-                    print("login");
+                    _signinsugnup.signIn(_emailControl.text, _passwordControl.text);
                   }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
