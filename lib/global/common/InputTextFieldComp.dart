@@ -19,7 +19,7 @@ class _InputtextfieldcompState extends State<Inputtextfieldcomp> {
   }
   OutlineInputBorder borderStyle = OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(color: Colors.grey, width: 1));
+      borderSide: const BorderSide(color: Colors.grey, width: 1));
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +31,7 @@ class _InputtextfieldcompState extends State<Inputtextfieldcomp> {
                             .withOpacity(0.1),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 0), // changes position of shadow
+                        offset: const Offset(0, 0), // changes position of shadow
                       ),
                     ]),
         child: TextField(
@@ -43,14 +43,14 @@ class _InputtextfieldcompState extends State<Inputtextfieldcomp> {
             fillColor: Colors.white,
             filled: true,
               hintText: widget.hintText,
-              hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: const TextStyle(color: Colors.grey),
               enabledBorder: borderStyle,
               focusedBorder: borderStyle,
-              suffixIcon:widget.password?passwordview?IconButton(icon: Icon(Icons.visibility), onPressed: () {
+              suffixIcon:widget.password?passwordview?IconButton(icon: const Icon(Icons.visibility), onPressed: () {
                 setState(() {
                   passwordview = !passwordview;
                 });
-              },):IconButton(icon: Icon(Icons.visibility_off), onPressed: () {
+              },):IconButton(icon: const Icon(Icons.visibility_off), onPressed: () {
                 setState(() {
                   passwordview = !passwordview;
                 });

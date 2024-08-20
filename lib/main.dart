@@ -1,4 +1,5 @@
 import 'package:bookstore/Pages/loginpage.dart';
+import 'package:bookstore/Pages/mainpage.dart';
 import 'package:bookstore/Pages/onboarding.dart';
 import 'package:bookstore/Pages/registerpage.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return MaterialApp(
-      initialRoute:'onBoard' ,
+      initialRoute:'mainpage' ,
       title: 'Book Store',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       
       routes: {
+        'mainpage':(context)=> Mainpage(),
         'onBoard':(context)=> Onboarding(),
         'login':(context)=> Loginpage(),
         'register':(context)=> Registerpage()
