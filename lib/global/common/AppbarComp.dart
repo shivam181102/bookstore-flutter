@@ -1,3 +1,4 @@
+import 'package:bookstore/Data%20Layer/bookStoreApiCall.dart';
 import 'package:bookstore/global/common/ColorPalet.dart';
 import 'package:flutter/material.dart';
 
@@ -11,53 +12,93 @@ class Appbarcomp extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _AppbarcompState extends State<Appbarcomp> {
+  int cartCount = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    cartItem();
+    super.initState();
+  }
+
+  void cartItem() async {
+    Bookstoreapicall _bookstoreapicall = Bookstoreapicall();
+    final data = await _bookstoreapicall.getCartBooks();
+    cartCount = data.length;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Row(
-          children: [
-            Image.asset("assets/logo-dark.png", height: 25),
-            const SizedBox(
-              width: 5,
-            ),
-            const Text(
-              "Bookstore",
-              style: TextStyle(
-                  color: brown, fontSize: 25, fontWeight: FontWeight.bold),
-            )
-          ],
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.asset("assets/logo-dark.png", height: 25),
+          const SizedBox(
+            width: 5,
+          ),
+          const Text(
+            "Bookstore",
+            style: TextStyle(
+                color: brown, fontSize: 25, fontWeight: FontWeight.bold),
+          )
+        ],
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, 'search');
+          },
+          icon: const Icon(
+            Icons.search,
+            size: 30,
+            color: brown,
+          ),
         ),
-        actions: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.search,
-              size: 30,
-              color: brown,
-            ),
+        IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, 'wishlist');
+          },
+          icon: Icon(
+            Icons.favorite_outline,
+            size: 30,
+            color: brown,
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.favorite_outline,
-              size: 30,
-              color: brown,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(
+        ),
+        IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, 'cartpage');
+          },
+          icon: Stack(children: [
+            Icon(
               Icons.shopping_cart_outlined,
               size: 30,
               color: brown,
             ),
-          )
-        ],
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.white,
-        shadowColor: Colors.black,
-        surfaceTintColor: Colors.white,
-      );
-      
+            cartCount!= 0? Positioned(
+                right: 3,
+                top: 0.5,
+                child: Container(
+                  padding: EdgeInsets.zero,
+                  height: 17,
+                  width: 17,
+                  child: Center(
+                    child: Text(
+                      "$cartCount",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      color: brown, borderRadius: BorderRadius.circular(10)),
+                )):Container(),
+          ]),
+        )
+      ],
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.white,
+      shadowColor: Colors.black,
+      surfaceTintColor: Colors.white,
+    );
   }
 }

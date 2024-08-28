@@ -3,10 +3,12 @@ import 'dart:developer';
 
 import 'package:bookstore/Data%20Layer/bookStoreApiCall.dart';
 import 'package:bookstore/Pages/BooksGridViewComp.dart';
+import 'package:bookstore/Providers/bookcountProvider.dart';
 import 'package:bookstore/global/common/AppbarComp.dart';
 import 'package:bookstore/global/common/ColorPalet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class Mainpage extends StatefulWidget {
@@ -57,10 +59,10 @@ class _MainpageState extends State<Mainpage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Column(
-              children: [Icon(Icons.home), Text("Home")],
+              children: [Icon(Icons.home, color: brown,), Text("Home" , style: TextStyle(color: brown),)],
             ),
             Column(
-              children: [Icon(Icons.heart_broken), Text("Saved")],
+              children: [Icon(Icons.favorite), Text("Saved")],
             ),
             Column(
               children: [Icon(Icons.settings_outlined), Text("Setting")],
@@ -92,13 +94,20 @@ class _MainpageState extends State<Mainpage> {
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
-                   Text(
-                    "($bookCount items )",
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
-                  ),
+                   Padding(
+                     padding: const EdgeInsets.only(bottom: 8.0),
+                     child: Consumer<Bookcountprovider>(
+                builder: (context, model, child) {
+                  return Text(
+                      "(${model.count} items )",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                                       );
+                 
+                },
+              ),)
                 ],
               ),
               const SizedBox(

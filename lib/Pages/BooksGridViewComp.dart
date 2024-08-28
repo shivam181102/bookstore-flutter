@@ -1,6 +1,9 @@
+import 'package:bookstore/Data%20Layer/bookStoreApiCall.dart';
+import 'package:bookstore/Providers/bookcountProvider.dart';
 import 'package:bookstore/global/common/ColorPalet.dart';
 import 'package:bookstore/global/models/bookModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class Booksgridviewcomp extends StatefulWidget {
@@ -12,18 +15,28 @@ class Booksgridviewcomp extends StatefulWidget {
 }
 
 class _BooksgridviewcompState extends State<Booksgridviewcomp> {
+  Bookstoreapicall _bookapi = Bookstoreapicall();
+  @override
+  void initState() {
+    // TODO: implement initState
+    final _bookcount = Provider.of<Bookcountprovider>(context, listen: false); 
+    // _bookcount.setcount(widget.booksdata.length);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+  int booklen = widget.booksdata.length;
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.booksdata.isEmpty?6: widget.booksdata.length,
+      itemCount: widget.booksdata.isEmpty?6: booklen,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           childAspectRatio: 0.6),
       itemBuilder: (context, index) {
+        Bookmodel? book = booklen != 0? widget.booksdata[index]: null;
         return Card(
           color: Colors.white,
           child: Column(
@@ -32,7 +45,7 @@ class _BooksgridviewcompState extends State<Booksgridviewcomp> {
             children: [
               GestureDetector(
                 onTap: () {
-                  aboutBook(widget.booksdata.length!=0? widget.booksdata[index]:null);
+                  aboutBook(booklen!=0? book:null);
                 },
                 child: Container(
                   child: Image.asset(
@@ -53,21 +66,21 @@ class _BooksgridviewcompState extends State<Booksgridviewcomp> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.booksdata.length!=0? widget.booksdata[index].bookName:"Null",
+                    Text(booklen!=0? book!.bookName:"Null",
                         style:
                             TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis)),
-                    Text(widget.booksdata.length!=0?widget.booksdata[index].author:"Null",
+                    Text(booklen!=0?book!.author:"Null",
                         style: TextStyle(
                             color: Colors.grey, fontSize: 10)),
                     Row(
                       children: [
                         Text(
-                          "Rs. ${widget.booksdata.length!=0?widget.booksdata[index].discountPrice:null}",
+                          "Rs. ${booklen!=0?book!.discountPrice:null}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                         ),
-                        Text("Rs. ${widget.booksdata.length!=0? widget.booksdata[index].price:null}",
+                        Text("Rs. ${booklen!=0? book!.price:null}",
                             style: TextStyle(
                                 fontSize: 10,
                                 decoration:
@@ -77,26 +90,52 @@ class _BooksgridviewcompState extends State<Booksgridviewcomp> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey,width: 0.5),
-                              borderRadius: BorderRadius.circular(5)),
-                          width: 35,
-                          height: 35,
-                          child: Icon(
-                            Icons.favorite_outline,
-                            size: 20,
-                            color: Colors.grey,
+                        GestureDetector(
+                          onTap: () async{
+                            bool stat = false;
+                            if (booklen!=0 && book!.wishlist == false) {
+                               stat = await _bookapi.AddtoWishlist(book.id);
+                            }else{
+                               stat = await _bookapi.RemoveFromWishlist(book!.id);
+                            }
+                            if (stat) {
+                              setState(() {
+                                widget.booksdata.remove(book);
+                              });
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: booklen!=0 && book!.wishlist? brown: Colors.grey,width: 0.5),
+                                borderRadius: BorderRadius.circular(5)),
+                            width: 35,
+                            height: 35,
+                            child:booklen!=0 && book!.wishlist? Icon(Icons.favorite , color: brown,) :Icon(
+                              Icons.favorite_outline,
+                              size: 20,
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: brown,
-                              border: Border.all(color: brown),
-                              borderRadius: BorderRadius.circular(5)),
-                          width: 95,
-                          height: 35,
-                          child: Center(child: Text("ADD TO BAG", style: TextStyle(color: Colors.white, fontSize: 12),),)
+                        GestureDetector(
+                          onTap: () async{
+                            bool stat = await _bookapi.AddtoCart(book!.id);
+                            if (booklen!=0 && book!.wishlist == true) {
+                              await _bookapi.RemoveFromCart(book!.id);
+                            setState(() {
+                              widget.booksdata.remove(book);
+                            });
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: brown,
+                                border: Border.all(color: brown),
+                                borderRadius: BorderRadius.circular(5)),
+                            width: 95,
+                            height: 35,
+                            child: Center(child: Text("ADD TO BAG", style: TextStyle(color: Colors.white, fontSize: 12),),)
+                          ),
                         ),
     
                       ],

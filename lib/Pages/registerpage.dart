@@ -36,10 +36,10 @@ class _RegisterpageState extends State<Registerpage> {
             SizedBox(height: 40,),
             Column(
               children: [
-                Inputtextfieldcomp(hintText: "Full Name",controller: _nameControl,),
-                Inputtextfieldcomp(hintText: "Email",controller: _emailControl,),
-                Inputtextfieldcomp(hintText: "Password",controller: _passwordControl, password: true,),
-                Inputtextfieldcomp(hintText: "Phone",controller: _phoneControl,),
+                Inputtextfieldcomp(hintText: "Full Name",controller: _nameControl,showshadow: true,),
+                Inputtextfieldcomp(hintText: "Email",controller: _emailControl,showshadow: true,),
+                Inputtextfieldcomp(hintText: "Password",controller: _passwordControl, password: true,showshadow: true,),
+                Inputtextfieldcomp(hintText: "Phone",controller: _phoneControl,showshadow: true,),
               ],
             ),
             SizedBox(height: 40,),

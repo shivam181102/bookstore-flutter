@@ -1,6 +1,8 @@
 class Bookmodel {
-  String description, id, admin_user_id, bookName, author;
+  String description, id, bookName, author;
+  String?  admin_user_id;
   int discountPrice, quantity, price;
+  bool wishlist, addedtocart;
 
   Bookmodel(
       {required this.description,
@@ -10,5 +12,5 @@ class Bookmodel {
       required this.bookName,
       required this.discountPrice,
       required this.price,
-      required this.quantity});
+      required this.quantity, this.addedtocart = false, this.wishlist = false});
 }
