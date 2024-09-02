@@ -23,7 +23,7 @@ class _AppbarcompState extends State<Appbarcomp> {
   void cartItem() async {
     Bookstoreapicall _bookstoreapicall = Bookstoreapicall();
     final data = await _bookstoreapicall.getCartBooks();
-    cartCount = data.length;
+    cartCount = data?.length?? 0;
     setState(() {});
   }
 
