@@ -1,4 +1,5 @@
 import 'package:bookstore/global/common/AppbarComp.dart';
+import 'package:bookstore/global/common/ColorPalet.dart';
 import 'package:bookstore/global/common/button.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class Orderplaced extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Stack(alignment: AlignmentDirectional.center,children: [
                  Padding(
@@ -36,7 +37,48 @@ class Orderplaced extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomAppBar(),
+      bottomNavigationBar: BottomAppBar(
+        height: 120,
+        padding: EdgeInsets.only(top: 10),
+        color: Colors.grey[200],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: const Column(
+                children: [
+                  Row(
+                    children: [
+                      Row(children: [
+                        Icon(Icons.mail, color: brown,),
+                        SizedBox(width: 10,),
+                        Text('admin@bookstore.com')
+                      ],),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal:  8.0),
+                        child: SizedBox(height: 20, child: VerticalDivider(thickness: 2,width: 2,)),
+                      ),
+                       Row(children: [
+                        Icon(Icons.phone, color: brown,),
+                        SizedBox(width: 10,),
+                        Text('+91 9876543210')
+                      ],),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  Row(children: [
+                        Icon(Icons.pin_drop, color: brown,),
+                        SizedBox(width: 10,),
+                        Text('Bridgelabz, Malhotra Chembher, Govandi - 400 007')
+                      ],),
+                ],
+              ),
+            ),
+          Container(color: Colors.black, width: double.maxFinite, child: Center(child: Text("Copyright @ 2020, Bookstore Pvt. Ltd. All Rights Reserved", style: TextStyle(color: Colors.white),),),)
+          ],
+        ),
+      ),
     );
   }
 }

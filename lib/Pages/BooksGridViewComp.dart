@@ -34,14 +34,15 @@ class _BooksgridviewcompState extends State<Booksgridviewcomp> {
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 0.6),
+          childAspectRatio: 0.65),
       itemBuilder: (context, index) {
         Bookmodel? book = booklen != 0? widget.booksdata[index]: null;
         return Card(
+          
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: [
               GestureDetector(
                 onTap: () {
@@ -88,7 +89,7 @@ class _BooksgridviewcompState extends State<Booksgridviewcomp> {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         GestureDetector(
                           onTap: () async{

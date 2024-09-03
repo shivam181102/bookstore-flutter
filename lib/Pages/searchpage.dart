@@ -25,7 +25,7 @@ class _SearchpageState extends State<Searchpage> {
   }
   void getsugetions()async{
     SharedPreferences _sp = await SharedPreferences.getInstance();
-    suggetions = (await _sp.getStringList('suggetions'))!;
+    suggetions = (await _sp.getStringList('suggetions'))??[];
     setState(() {
       
     });

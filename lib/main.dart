@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Cartstateprovider(),),
       ],
       child: MaterialApp(
-        initialRoute:'orderplace' ,
+        initialRoute:'onBoard' ,
         title: 'Book Store',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
