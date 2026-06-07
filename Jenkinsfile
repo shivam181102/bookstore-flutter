@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-    stage('Flutter Setup') {
+    stage('Flutter download') {
         steps {
             sh '''
                 if [ ! -d "$HOME/flutter" ]; then
